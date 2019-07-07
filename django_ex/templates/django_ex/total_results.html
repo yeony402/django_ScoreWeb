@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}1차 발표평가 종합결과 표{% endblock %}
+
+{% block content %}
+<div class="base-padding">
+  <table id="total_table">
+    <thead>
+      <tr>
+        <th>지원자/기업 명</th>
+        <th>1-1. 개발동기</th>
+        <th>1-2. 목적</th>
+        <th>2-1. 개발방안</th>
+        <th>2-2. 대응방안</th>
+        <th>3-1. 자금소요</th>
+        <th>3-2. 전략</th>
+        <th>4-1. 보유역량</th>
+        <th>4-2. 실천계획</th>
+        <th>가점</th>
+        <th>합계</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for s in score %}
+      <tr>
+        <td>{{s.ceo}}</td>
+        <td class="id_score">{{s.score_0}}</td>
+        <td class="id_score">{{s.score_1}}</td>
+        <td class="id_score">{{s.score_2}}</td>
+        <td class="id_score">{{s.score_3}}</td>
+        <td class="id_score">{{s.score_4}}</td>
+        <td class="id_score">{{s.score_5}}</td>
+        <td class="id_score">{{s.score_6}}</td>
+        <td class="id_score">{{s.score_7}}</td>
+        <td class="id_score">{{s.ceo.plus_points}}</td>
+        <td class="sum"></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

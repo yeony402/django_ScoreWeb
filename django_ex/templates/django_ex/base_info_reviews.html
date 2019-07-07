@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}competitor information{% endblock %}
+
+{% block content %}
+<div class="base-padding">
+  <form class="" action="" method="post">
+    {% csrf_token %}
+    <ul>
+      {% if ceos %}
+      <tr>
+        <td>해당연도 {{ceos.years}}</td>
+        <td>지원자/기업명 {{ceos.ceos}}</td>
+        <input type="submit" name="" value="검색">
+      </tr>
+    </ul>
+    <table>
+      {% if input_form %}
+      {% if post %}
+      <tr>
+        <th>지원자/기업명</th>
+        <td>{{post.ceoname}}</td>
+        <th>창업유무</th>
+        <td>{{post.setup_fields}}</td>
+        <th>해당연도</th>
+        <td>{{post.years}}년</td>
+      </tr>
+      <tr>
+        <th>창업분야</th>
+        <td>
+        {{post.item_fields}}
+      </td>
+        <th>업종분야</th>
+        <td>{{post.work_fields}}</td>
+        <th>가점</th>
+        <td>{{post.plus_points}}</td>
+      </tr>
+      <tr>
+        <th>아이템명</th>
+        <td colspan="5">{{post.itemname}}</td>
+      </tr>
+    </table>
+  </form>
+  {% endif %}
+  {% endif %}
+  {% endif %}
+  <form action="{% url 'django_ex:base-info-change' post.id %}">
+    <input type="submit" value="수정하기">
+    </form>
+</div>
+{% endblock %}

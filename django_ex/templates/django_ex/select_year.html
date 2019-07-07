@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}발표평가 평가하기{% endblock %}
+
+{% block content %}
+<div class="base-padding">
+  <form class="" action="{% url 'django_ex:select_year' %}" method="post">
+    {% csrf_token %}
+    <p>
+      <li>해당년도를 선택해주세요.</li>
+    </p>
+    {% if years_list %}
+    {% for year in years_list %}
+    <!-- <button type="submit" name="button">{{year}}</button> -->
+    <input type="submit" name="year" value="{{year}}">
+    {% endfor %}
+    {% endif %}
+  </form>
+
+</div>
+{% endblock %}

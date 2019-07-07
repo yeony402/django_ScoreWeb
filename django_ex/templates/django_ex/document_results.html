@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}document_post_page{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="column side"></div>
+<div class="column middle">
+
+  <div class="layout-padding">
+    <!-- <form action="{% url 'django_ex:checked-evaluation' user.id %}">
+      {% csrf_token %}
+      <input type="submit" value="목록으로 돌아가기">
+      </form> -->
+    <div class="layout">
+      <p>2019년 창업선도대학 '창업아이템사업화'</p>
+      <h2><p>서류평가표</p></h2>
+    </div>
+  </div>
+    <table>
+      {% if post %}
+      {% if show_score %}
+      <tr>
+        <th>지원자/기업명</th>
+        <td>{{post.ceoname}}</td>
+        <th>창업유무</th>
+        <td>{{post.setup_fields}}</td>
+        <th>발표차수</th>
+        <td>{{show_score.th}}</td>
+      </tr>
+      <tr>
+        <th>창업분야</th>
+        <td>{{post.item_fields}}</td>
+        <th>업종분야</th>
+        <td>{{post.work_fields}}</td>
+        <th>가점</th>
+        <td>{{post.plus_points}}</td>
+      </tr>
+      <tr>
+        <th>아이템명</th>
+        <td colspan="5">{{post.itemname}}</td>
+      </tr>
+    </table>
+    <form action="{% url 'django_ex:document_results' user.id post.id %}" method="post">
+      {% csrf_token %}
+      <table>
+        <tbody>
+          <tr>
+            <th scope='col'>세부평가</th>
+            <th scope='col'>평가내용</th>
+            <th scope='col'>배점</th>
+            <th scope='col'>최소 득점</th>
+            <th scope='col'>점수</th>
+          </tr>
+          <!--  -->
+          <tr>
+            <th rowspan="2" class="text-left" class="text-left">1.문제인식(Problem)</th>
+            <th scope="col" class="text-left">1-1. 창업아이템의 개발동기</th>
+              <td>15</td>
+              <td rowspan="2">18</td>
+              <td>{{show_score.score_0}}</td>
+          </tr>
+          <tr>
+            <th scope="col" class="text-left">1-2. 창업아이템의 목적(필요성)</th>
+              <td>15</td>
+              <td>{{show_score.score_1}}</td>
+          </tr>
+          <tr>
+            <th rowspan="2" class="text-left">2.해결방안(Solution)</th>
+            <th scope="col" class="text-left">2-1. 창업아이템의 사업화 전략</th>
+              <td>15</td>
+              <td rowspan="2">18</td>
+              <td>{{show_score.score_2}}</td>
+          </tr>
+          <tr>
+            <th scope="col" class="text-left">2-2. 창업아이템의 시장분석 및 경쟁력 확보방안</th>
+              <td>15</td>
+              <td>{{show_score.score_3}}</td>
+          </tr>
+        <tr>
+            <th rowspan="2" class="text-left">3.성장전략(Scale-up)</th>
+            <th scope="col" class="text-left">3-1. 자금소요 및 조달계획</th>
+              <td>5</td>
+              <td rowspan="2">12</td>
+              <td>{{show_score.score_4}}</td>
+          </tr>
+          <tr>
+            <th scope="col" class="text-left">3-2. 시장진입 및 성과창출 전략(내수/해외)</th>
+              <td>10</td>
+              <td>{{show_score.score_5}}</td>
+          </tr>
+        <tr>
+            <th rowspan="2" class="text-left">4.팀 구성(Team)</th>
+            <th scope="col" class="text-left">4-1. 대표자 및 팀원의 보유역량</th>
+              <td>10</td>
+              <td rowspan="2">12</td>
+              <td>{{show_score.score_6}}</td>
+          </tr>
+          <tr>
+            <th scope="col" class="text-left">4-2. 사회적 가치 실천계획</th>
+              <td>10</td>
+              <td>{{show_score.score_7}}</td>
+          </tr>
+          <!--  -->
+        </tbody>
+        {% if sum %}
+        <tfoot>
+          <tr>
+            <th colspan="2">소계</th>
+              <td>100</td>
+              <td>60</td>
+              <td>{{sum}}</td>
+          </tr>
+        <tr>
+            <th colspan="2">가점</th>
+            <td>최대5점</td>
+            <th>-</th>
+            <td>{{post.plus_points}}</td>
+        </tr>
+        {% if sum_score %}
+        <tr>
+            <th colspan="2">최종점수</th>
+            <th></th>
+            <td></td>
+            <td>{{sum_score}}</td>
+        </tr>
+        </tfoot>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endif %}
+      </table>
+      <table>
+        <tr>
+          <th>코멘트</th>
+          <td>{{show_score.comment}}</td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div class="column side"></div>
+</div>
+{% endblock %}

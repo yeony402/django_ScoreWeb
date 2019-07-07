@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load filter %}
+
+{% block title %}1차 발표평가 정보 보기{% endblock %}
+
+{% block content %}
+<div class="base-padding">
+  <ul>
+    <li>
+      {% if request.user|has_group_customuser:"customuser" %}
+      <!-- <a class="" href="{% url 'django_ex:document_list' user.id %}">평가하기</a> -->
+      <a class="" href="{% url 'django_ex:select_year' %}">평가하기</a>
+      {% elif user.is_authenticated %}
+      <a class="" href="{% url 'django_ex:home' %}">평가하기</a>
+      {% else %}
+      <a class="" href="{% url 'login' %}">평가하기</a>
+      {% endif %}
+    </li>
+    <li>
+      {% if request.user|has_group_customuser:"customuser" %}
+      <a class="" href="{% url 'django_ex:select_year_results' %}">평가 결과 보기</a>
+      {% elif user.is_authenticated %}
+      <a class="" href="{% url 'django_ex:home' %}">평가 결과 보기</a>
+      {% else %}
+      <a class="" href="{% url 'login' %}">평가 결과 보기</a>
+      {% endif %}
+    </li>
+  </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}presentation_list{% endblock %}
+
+{% block content %}
+{% if ceo_list %}
+<ul class="base-padding">
+  {% for ceoname in ceo_list %}
+  <li>
+    <a href="#">{{ceoname}}님의 발표평가</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load filter %}
+<!-- template 태그에는 has_group이란걸 갖고있지않다 -->
+
+{% block content %}
+<header class="bg-primary text-white">
+  <div class="container text-center">
+    <h1>CATHOLIC KWANDONG UNIVERSITY</h1>
+    <p class="lead">가톨릭관동대학교 창업아이템사업화</p>
+  </div>
+</header>
+
+<section id="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <h2>지원자 정보</h2>
+        <p class="lead">This is a great place to talk about your webpage. This template is purposefully unstyled so you can use it as a boilerplate or starting point for you own landing page designs! This template features:</p>
+        <ul>
+          <li>Clickable nav links that smooth scroll to page sections</li>
+          <li>Responsive behavior when clicking nav links perfect for a one page website</li>
+          <li>Bootstrap's scrollspy feature which highlights which section of the page you're on in the navbar</li>
+          <li>Minimal custom CSS so you are free to explore your own unique design options</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="btn-container">
+    <button class="btn" type="button" name="button">
+      {% if request.user|has_group:"manager" %}
+      <a class="btn-col" href="{% url 'django_ex:base_info_list' %}">GO</a>
+      {% elif user.is_authenticated %}
+      <a class="btn-col" href="{% url 'django_ex:home' %}">GO</a>
+      {% else %}
+      <a class="btn-col" href="{% url 'login' %}">GO</a>
+      {% endif %}
+    </button>
+  </div>
+</section>
+
+<section id="services" class="bg-dark">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <h2 >2019 서류평가 시작하기</h2>
+        <p >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut optio velit inventore, expedita quo laboriosam possimus ea consequatur vitae, doloribus consequuntur ex. Nemo assumenda laborum vel, labore ut velit dignissimos.</p>
+      </div>
+    </div>
+  </div>
+  <div class="btn-container">
+    <button class="btn" type="button" name="button">
+      {% if request.user|has_group_customuser:"customuser" %}
+      <a class="btn-col-dark" href="{% url 'django_ex:document_list' user.id %}">GO</a>
+      {% elif user.is_authenticated %}
+      <a class="btn-col-dark" href="{% url 'django_ex:home' %}">GO</a>
+      {% else %}
+      <a class="btn-col-dark" href="{% url 'login' %}">GO</a>
+      {% endif %}
+    </button>
+  </div>
+</section>
+
+<section id="contact" class="bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <h2>2019 발표평가 시작하기</h2>
+        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa exercitationem, in, quo totam.</p>
+      </div>
+    </div>
+  </div>
+  <div class="btn-container">
+    <button class="btn" type="button" name="button">
+      {% if request.user|has_group_customuser:"customuser" %}
+      <a class="btn-col" href="{% url 'django_ex:presentation_list' user.id %}">GO</a>
+      {% elif user.is_authenticated %}
+      <a class="btn-col" href="{% url 'django_ex:home' %}">GO</a>
+      {% else %}
+      <a class="btn-col" href="{% url 'login' %}">GO</a>
+      {% endif %}
+    </button>
+  </div>
+</section>
+
+{% endblock %}

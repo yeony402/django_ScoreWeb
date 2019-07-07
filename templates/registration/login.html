@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="row">
+<div class="column side"></div>
+<div class="column middle">
+  <form method="post" action="{% url 'login' %}">
+  {% csrf_token %}
+  <table class="row-login">
+  <tr>
+      <td class="row-login">{{ form.username.label_tag }}</td>
+      <td class="row-login">
+        <input type="text" name="{{form.username.html_name}}">
+      </td>
+  </tr>
+  <tr>
+      <td class="row-login">{{ form.password.label_tag }}</td>
+      <td class="row-login">
+        <input type="password" name="{{form.password.html_name}}">
+      </td>
+  </tr>
+  </table>
+<button type="submit" name="button">Login</button>
+  </form>
+
+  {# Assumes you setup the password_reset view in your URLconf #}
+  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+</div>
+<div class="column side"></div>
+</div>
+
+{% endblock %}

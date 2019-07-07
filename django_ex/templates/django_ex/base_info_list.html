@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load filter %}
+
+{% block title %}competitor information{% endblock %}
+
+{% block content %}
+<div class="base-padding">
+  <ul>
+    <li>
+      {% if request.user|has_group:"manager" %}
+      <a class="" href="{% url 'django_ex:base_info' %}">지원자 정보 입력하기</a>
+      {% elif user.is_authenticated %}
+      <a class="" href="{% url 'django_ex:home' %}">지원자 정보 입력하기</a>
+      {% else %}
+      <a class="" href="{% url 'login' %}">지원자 정보 입력하기</a>
+      {% endif %}
+    </li>
+    <li>
+      {% if request.user|has_group:"manager" %}
+      <a class="" href="{% url 'django_ex:base-info-check' %}">지원자 정보 확인하기</a>
+      {% elif user.is_authenticated %}
+      <a class="" href="{% url 'django_ex:home' %}">지원자 정보 확인하기</a>
+      {% else %}
+      <a class="" href="{% url 'login' %}">지원자 정보 확인하기</a>
+      {% endif %}
+    </li>
+    <li>
+      {% if request.user|has_group:"manager" %}
+      <a class="" href="{% url 'django_ex:test_total_results' %}">종합 평가 결과</a>
+      {% elif user.is_authenticated %}
+      <a class="" href="{% url 'django_ex:home' %}">종합 평가 결과</a>
+      {% else %}
+      <a class="" href="{% url 'login' %}">종합 평가 결과</a>
+      {% endif %}
+    </li>
+  </ul>
+</div>
+{% endblock %}

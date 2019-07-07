@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+  <div class="row">
+  <div class="column side"></div>
+  <div class="column middle">
+    <div class="layout-padding">
+      <div class="layout">
+        <p>2019년 창업선도대학 '창업아이템사업화'</p>
+        <h2><p>서류평가표</p></h2>
+      </div>
+    </div>
+    <div class="layout-padding">
+      <table>
+      <thead>
+        {% if ceoform %}
+      <form id="ceoform" action="{% url 'django_ex:base_info' %}" method="post">
+        {% csrf_token %}
+        <tr>
+          <th>지원자/기업명</th>
+          <td>{{ceoform.ceoname}}</td>
+          <p id="test"></p>
+        </tr>
+        <tr>
+          <th>해당연도</th>
+          <td>{{ceoform.years}}</td>
+        </tr>
+        <tr>
+        <tr>
+          <th>분야</th>
+          <td>{{ceoform.item_fields}}</td>
+        </tr>
+        <tr>
+          <th>업종분야</th>
+          <td>{{ceoform.work_fields}}</td>
+        </tr>
+        <tr>
+          <th>창업유무</th>
+          <td>{{ceoform.setup_fields}}</td>
+        </tr>
+        <tr>
+          <th>가점</th>
+          <td>{{ceoform.plus_points}}</td>
+        </tr>
+        <tr>
+          <th>아이템명</th>
+          <td>{{ceoform.itemname}}</td>
+        </tr>
+        <input type="submit" value="저장" id="ceoform_btn">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+      </form>
+      {% endif %}
+      </thead>
+      </table>
+    </div>
+  </div>
+  <div class="column side"></div>
+</div>
+{% endblock %}

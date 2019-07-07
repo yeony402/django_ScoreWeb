@@ -1,0 +1,165 @@
+{% load filter %}
+<!-- template 태그에는 has_group이란걸 갖고있지않다 -->
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>{% block title %} Document {% endblock %}</title>
+
+  {% load static %}
+  <!-- Bootstrap core CSS -->
+  <link href='{% static "vendor/bootstrap/css/bootstrap.min.css" %}' rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href='{% static "css/modern-business.css" %}' rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'django_ex:home' %}">
+        <img src='{% static "img/etta.png" %}' alt="etta.png">
+      </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item nav-link">
+            {% if user.is_authenticated %}
+            {{user}} 님
+            {% endif %}
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="services.html">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li> -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              지원자 정보
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+              {% if request.user|has_group:"manager" %}
+              <a class="dropdown-item" href="{% url 'django_ex:base_info' %}">지원자 정보 입력하기</a>
+              {% elif user.is_authenticated %}
+              <a class="dropdown-item" href="{% url 'django_ex:home' %}">지원자 정보 입력하기</a>
+              {% else %}
+              <a class="dropdown-item" href="{% url 'login' %}">지원자 정보 입력하기</a>
+              {% endif %}
+              {% if request.user|has_group:"manager" %}
+              <a class="dropdown-item" href="{% url 'django_ex:base-info-check' %}">지원자 정보 확인하기</a>
+              {% elif user.is_authenticated %}
+              <a class="dropdown-item" href="{% url 'django_ex:home' %}">지원자 정보 확인하기</a>
+              {% else %}
+              <a class="dropdown-item" href="{% url 'login' %}">지원자 정보 확인하기</a>
+              {% endif %}
+              {% if request.user|has_group:"manager" %}
+              <a class="dropdown-item" href="{% url 'django_ex:test_total_results' %}">종합 평가 결과</a>
+              {% elif user.is_authenticated %}
+              <a class="dropdown-item" href="{% url 'django_ex:home' %}">종합 평가 결과</a>
+              {% else %}
+              <a class="dropdown-item" href="{% url 'login' %}">종합 평가 결과</a>
+              {% endif %}
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              발표 평가
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+              {% if request.user|has_group_customuser:"customuser" %}
+              <a class="dropdown-item" href="{% url 'django_ex:test_list' %}">발표평가</a>
+              {% elif user.is_authenticated %}
+              <a class="dropdown-item" href="{% url 'django_ex:home' %}">발표평가</a>
+              {% else %}
+              <a class="dropdown-item" href="{% url 'login' %}">발표평가</a>
+              {% endif %}
+              <!-- {% if request.user|has_group_customuser:"customuser" %}
+              <a class="dropdown-item" href="#">2차 발표평가</a>
+              {% elif user.is_authenticated %}
+              <a class="dropdown-item" href="{% url 'django_ex:home' %}">2차 발표평가</a>
+              {% else %}
+              <a class="dropdown-item" href="{% url 'login' %}">2차 발표평가</a>
+              {% endif %} -->
+              {% if request.user|has_group_customuser:"customuser" %}
+              <a class="dropdown-item" href="{% url 'django_ex:select_year_results' %}">평가 결과 보기</a>
+
+              {% elif user.is_authenticated %}
+              <a class="dropdown-item" href="{% url 'django_ex:home' %}">평가 결과 보기</a>
+              {% else %}
+              <a class="dropdown-item" href="{% url 'login' %}">평가 결과 보기</a>
+              {% endif %}
+            </div>
+          </li>
+          <!-- <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              발표 평가
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+              {% if request.user|has_group_customuser:"customuser" %}
+              <a class="dropdown-item" href="{% url 'django_ex:presentation_list' user.id %}">1차 발표평가</a>
+              {% elif user.is_authenticated %}
+              <a class="dropdown-item" href="{% url 'django_ex:home' %}">1차 발표평가</a>
+              {% else %}
+              <a class="dropdown-item" href="{% url 'login' %}">1차 발표평가</a>
+              {% endif %}
+              {% if request.user|has_group_customuser:"customuser" %}
+              <a class="dropdown-item" href="{% url 'django_ex:presentation_list' user.id %}">평가 결과 보기</a>
+              {% elif user.is_authenticated %}
+              <a class="dropdown-item" href="{% url 'django_ex:home' %}">평가 결과 보기</a>
+              {% else %}
+              <a class="dropdown-item" href="{% url 'login' %}">평가 결과 보기</a>
+              {% endif %}
+            </div> -->
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">로그아웃</a>
+            {% else %}
+            <a class="nav-link" href="{% url 'login' %}">로그인</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header>
+    {% block header %}
+    {% endblock %}
+  </header>
+
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Create By &copy; <a class="cku" href="">가톨릭관동대학교</a></p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src='{% static "vendor/jquery/jquery.min.js" %}'></script>
+  <script src='{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}'></script>
+  <script src='{% static "js/contact_me.js" %}'></script>
+
+</body>
+
+</html>

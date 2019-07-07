@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}competitor information{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="column side"></div>
+<div class="column middle">
+  {% if ceos %}
+  <form class="" action="{% url 'django_ex:checked-evaluation' user.id %}" method="post">
+    {% csrf_token %}
+    <ul>
+      <tr>
+        <td>해당연도 {{ceos.years}}</td>
+        <td>지원자/기업명 {{ceos.ceos}}</td>
+        <input type="submit" name="" value="검색">
+      </tr>
+    </ul>
+    {% endif %}
+
+    {% if messages %}
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{message.tags}}"{% endif %}>{{message}}</li>
+    {% endfor %}
+    {% endif %}
+    </form>
+  </div>
+  <div class="column side"></div>
+</div>
+{% endblock %}

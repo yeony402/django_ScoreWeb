@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}발표평가 확인하기{% endblock %}
+
+{% block content %}
+<div class="base-padding">
+  <form class="" action="{% url 'django_ex:select_th' %}" method="post">
+    {% csrf_token %}
+    <p>
+      <li> 평가 결과를 확인 할 발표차수를 선택해주세요.</li>
+    </p>
+    {% if select_th %}
+    {% for th in select_th %}
+    <input type="submit" name="th" value="{{th}}">
+    {% endfor %}
+    {% endif %}
+  </form>
+
+</div>
+{% endblock %}

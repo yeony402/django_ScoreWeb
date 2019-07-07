@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}1차 발표평가 평가하기{% endblock %}
+
+{% block content %}
+<div class="base-padding">
+  <form class="" action="{% url 'django_ex:select_year' %}" method="post">
+    {% csrf_token %}
+    <ul>
+      {% if ceo_list %}
+      {% for list in ceo_list %}
+      <li>
+        <a href="{% url 'django_ex:document_post' user.id list.id %}">{{list.ceoname}}님의 발표평가</a>
+      </li>
+      {% endfor %}
+      {% endif %}
+    </ul>
+  </form>
+</div>
+{% endblock %}

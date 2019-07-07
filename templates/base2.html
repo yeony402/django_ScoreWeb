@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>{% block title %} Document {% endblock %}</title>
+
+  {% load static %}
+  <link href='{% static "vendor/bootstrap/css/bootstrap.min.css" %}' rel="stylesheet">
+  <!-- custom css -->
+  <link href='{% static "css/scrolling-nav.css" %}' rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="{% url 'django_ex:home' %}">
+        <img src='{% static "img/etta.png" %}' alt="etta.png">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          {% if user.is_authenticated %}
+          <p class="nav-link-2 text-primary">{{user}} 님</p>
+          {% endif %}
+            <a class="nav-link-2 js-scroll-trigger" href="#about">기본정보</a>
+            <a class="nav-link-2 js-scroll-trigger" href="#services">서류평가</a>
+            <a class="nav-link-2 js-scroll-trigger" href="#contact">발표평가</a>
+            {% if user.is_authenticated %}
+            <a class="nav-link-2" href="{% url 'logout' %}">로그아웃</a>
+            {% else %}
+            <a class="nav-link-2" href="{% url 'login' %}">로그인</a>
+            {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+<footer class="py-5 bg-light">
+  <div class="container">
+    <p class="m-0 text-center text-dark">Create By &copy;
+    <a class="cku" href="">가톨릭관동대학교</a></p>
+  </div>
+</footer>
+<script src='{% static "vendor/jquery/jquery.min.js" %}'></script>
+<script src='{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}'></script>
+<script src='{% static "vendor/jquery-easing/jquery.easing.min.js" %}'></script>
+<!-- custom js -->
+<script src='{% static "js/scrolling-nav.js" %}'></script>
+
+</html>
