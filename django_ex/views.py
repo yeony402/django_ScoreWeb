@@ -399,7 +399,7 @@ class ScoreForm(forms.ModelForm):
     class Meta:
         model = Score
         exclude = ('ceo', 'myuser')
-        fields = ['th', 'score_0', 'score_1', 'score_2', 'score_3', 'score_4', 'score_5', 'score_6', 'score_7', 'comment']
+        fields = ['score_0', 'score_1', 'score_2', 'score_3', 'score_4', 'score_5', 'score_6', 'score_7', 'comment']
 
 # clean은 필드의 서브클래스로 폼의 전체필드에 대해 유효성 검사를 할 때 사용하고, clean_필드명 함수는 폼의 서브클래스로 특정 필드에 대한 유효성 검사를 실시할 때 사용한다. 폼에 두 메서드가 같이 있을 땐 clean_필드명 메서드가 먼저 실행된다.
 #     def clean(self):
@@ -663,8 +663,8 @@ class TestListView(TemplateView):
 #         return render(request, 'django_ex/test_list_1.html', {'checkceoform':form})
 
 
-def select_th(request):
-    return HttpResponse('aaaaaaa')
+def select_th(request, current_year):
+    return render(request, 'django_ex/select_th')
 
 
 def select_year_results(request):
@@ -682,7 +682,11 @@ def select_year_results(request):
     if request.method == 'POST':
         selected_year = request.POST.get('year')
         score_list = Score.objects.filter(ceo__years=selected_year)
-        return redirect('django_ex:select_th')
+        # return redirect('django_ex:select_th')
+        context = {
+            'score_list':score_list,
+        }
+        return render(request, 'django_ex/select_th.html', context)
     else:
         form = CheckCeoForm()
 

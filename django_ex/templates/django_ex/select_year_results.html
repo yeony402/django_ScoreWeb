@@ -8,7 +8,7 @@
   <form class="" action="{% url 'django_ex:select_year_results' %}" method="post">
     {% csrf_token %}
     <p>
-      <li>해당년도를 선택해주세요.</li>
+      <li>결과를 확인할 연도를 선택해주세요.</li>
     </p>
     {% if years_list %}
     {% for year in years_list %}
